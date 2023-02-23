@@ -9,11 +9,13 @@ import {
   SignUp,
   Error,
 } from "./pages";
+ import { Header } from "./components";
 
 const App = () => {
   return (
     <Fragment>
       <Router>
+      <Header/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
