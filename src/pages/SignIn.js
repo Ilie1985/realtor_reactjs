@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
@@ -48,20 +49,40 @@ const SignIn = () => {
                 placeholder="Password"
               />
               {showPassword ? (
-                <AiFillEyeInvisible
+                <AiFillEye
                   className="absolute right-3 top-3 text-xl cursor-pointer"
                   onClick={() => {
                     setShowPassword(false);
                   }}
                 />
               ) : (
-                <AiFillEye
+                <AiFillEyeInvisible
                   className="absolute right-3 top-3 text-xl cursor-pointer"
                   onClick={() => {
                     setShowPassword(true);
                   }}
                 />
               )}
+            </div>
+
+            <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg">
+              <p className="mb-6 ">
+                Don`t have the account?{" "}
+                <Link
+                  to="/sign-up"
+                  className="text-red-600 hover:text-red-700 transition duration-200 ease-in-out ml-1"
+                >
+                  Register
+                </Link>
+              </p>
+              <p>
+                <Link
+                  to="/forgot-password"
+                  className="text-blue-600 hover:text-blue-900 transition duration-200 ease-in-out"
+                >
+                  Forgot Password?
+                </Link>
+              </p>
             </div>
           </form>
         </div>
