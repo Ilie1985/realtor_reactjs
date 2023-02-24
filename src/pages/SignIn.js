@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -28,13 +31,38 @@ const SignIn = () => {
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
           <form>
             <input
-              className="w-full"
+              className=" mb-6 w-full px-4  py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"
               type="email"
               id="email"
               value={formData.email}
               onChange={onChange}
               placeholder="Email address"
             />
+            <div className="relative mb-6">
+              <input
+                className="w-full px-4  py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"
+                type={showPassword ? "text" : "password"}
+                id="password"
+                value={formData.password}
+                onChange={onChange}
+                placeholder="Password"
+              />
+              {showPassword ? (
+                <AiFillEyeInvisible
+                  className="absolute right-3 top-3 text-xl cursor-pointer"
+                  onClick={() => {
+                    setShowPassword(false);
+                  }}
+                />
+              ) : (
+                <AiFillEye
+                  className="absolute right-3 top-3 text-xl cursor-pointer"
+                  onClick={() => {
+                    setShowPassword(true);
+                  }}
+                />
+              )}
+            </div>
           </form>
         </div>
       </div>

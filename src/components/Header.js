@@ -28,7 +28,7 @@ const Header = () => {
           <ul className="flex space-x-10">
             <li
               className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent ${
-                pathMatchRoute("/") && "text-gray-900 border-b-red-500"
+                pathMatchRoute("/") && "text-gray-900 border-b-red-600"
               }`}
               onClick={() => navigate("/")}
             >
@@ -36,7 +36,7 @@ const Header = () => {
             </li>
             <li
               className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent ${
-                pathMatchRoute("/offers") && "text-gray-900 border-b-red-500"
+                pathMatchRoute("/offers") && "text-gray-900 border-b-red-600"
               }`}
               onClick={() => {
                 return navigate("/offers");
@@ -46,7 +46,7 @@ const Header = () => {
             </li>
             <li
               className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent ${
-                pathMatchRoute("/sign-in") && "text-gray-900 border-b-red-500"
+                pathMatchRoute("/sign-in") && "text-gray-900 border-b-red-600"
               }`}
               onClick={() => {
                 return navigate("/sign-in");
