@@ -9,13 +9,15 @@ import {
   SignUp,
   Error,
 } from "./pages";
- import { Header } from "./components";
+import { Header } from "./components";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
     <Fragment>
       <Router>
-      <Header/>
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
@@ -26,6 +28,18 @@ const App = () => {
           <Route path="*" element={<Error />} />
         </Routes>
       </Router>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </Fragment>
   );
 };
