@@ -35,6 +35,7 @@ const SignIn = () => {
         email,
         password
       );
+      toast.success("Sign in completed");
       if (userCredential.user) {
         navigate("/");
       }
