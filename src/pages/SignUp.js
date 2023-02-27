@@ -51,7 +51,7 @@ const SignUp = () => {
       delete formDataCopy.password;
       formDataCopy.timestamp = serverTimestamp();
       await setDoc(doc(db, "users", user.uid), formDataCopy);
-     
+
       navigate("/");
     } catch (error) {
       toast.error("Something went wrong with the registration!");
@@ -78,7 +78,6 @@ const SignUp = () => {
               value={name}
               onChange={onChange}
               placeholder="Name"
-         
             />
 
             <input
@@ -88,7 +87,6 @@ const SignUp = () => {
               value={email}
               onChange={onChange}
               placeholder="Email address"
-     
             />
             <div className="relative mb-6">
               <input
@@ -98,7 +96,6 @@ const SignUp = () => {
                 value={password}
                 onChange={onChange}
                 placeholder="Password"
-        
               />
               {showPassword ? (
                 <AiFillEye
