@@ -259,6 +259,22 @@ const CreateListing = () => {
             </div>
           </div>
         )}
+
+        <div className="mb-6 ">
+          <p className="text-lg font-semibold ">Images</p>
+          <p className="text-gray-600 ">
+            The first image will be the cover (max 6)
+          </p>
+          <input
+            type="file"
+            id="images"
+            onChange={onChange}
+            accept=".jpg,.png,jpeg"
+            multiple
+            required
+            className="w-full px-3 py-1.5 text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:bg-white focus:border-slate-600"
+          />
+        </div>
       </form>
     </main>
   );
