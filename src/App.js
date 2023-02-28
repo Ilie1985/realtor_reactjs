@@ -8,6 +8,7 @@ import {
   SignIn,
   SignUp,
   Error,
+  CreateListing,
 } from "./pages";
 import { Header, PrivateRoute } from "./components";
 import { ToastContainer } from "react-toastify";
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/sign-Up" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/offers" element={<Offers />} />
+          <Route path="/create-listing" element={<CreateListing />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </Router>
