@@ -8,9 +8,19 @@ const CreateListing = () => {
     bathrooms: 1,
     parking: false,
     furnished: false,
-    address:""
+    address: "",
+    description: "",
   });
-  const { type, name, bedrooms, bathrooms, parking, furnished,address } = formData;
+  const {
+    type,
+    name,
+    bedrooms,
+    bathrooms,
+    parking,
+    furnished,
+    address,
+    description,
+  } = formData;
   const onChange = () => {};
 
   return (
@@ -152,6 +162,16 @@ const CreateListing = () => {
           type="text"
           id="address"
           value={address}
+          onChange={onChange}
+          placeholder="Address"
+          required
+          className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
+        />
+        <p className="text-lg font-semibold">Description</p>
+        <textarea
+          type="text"
+          id="description"
+          value={description}
           onChange={onChange}
           placeholder="Address"
           required
