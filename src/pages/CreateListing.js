@@ -27,7 +27,27 @@ const CreateListing = () => {
     regularPrice,
     discountedPrice,
   } = formData;
-  const onChange = () => {};
+
+  const onChange = (e) => {
+    let boolean = null;
+
+    if (e.target.value === "true") {
+      boolean = true;
+    }
+    if (e.target.value === "false") {
+      boolean = false;
+    }
+    if (e.target.files) {
+      setFormData((prevState) => {
+        return { ...prevState, images: e.target.files };
+      });
+    }
+    if (!e.target.files) {
+      setFormData((prevState) => {
+        return { ...prevState, [e.target.id]: boolean ?? e.target.value };
+      });
+    }
+  };
 
   return (
     <main className="max-w-md px-2 mx-auto ">
@@ -53,7 +73,7 @@ const CreateListing = () => {
           <button
             type="button"
             id="type"
-            value="sale"
+            value="rent"
             onClick={onChange}
             className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
               type === "sale"
@@ -109,7 +129,7 @@ const CreateListing = () => {
 
         <p className="text-lg mt-6 font-semibold">Parking spot</p>
 
-        <div className="flex ">
+        <div className="flex">
           <button
             type="button"
             id="parking"
