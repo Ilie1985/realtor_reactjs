@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 const CreateListing = () => {
-  const [formData, setFormData] = useState({ type: "rent" });
-  const { type } = formData;
+  const [formData, setFormData] = useState({ type: "rent", name: "" });
+  const { type, name } = formData;
   const onChange = () => {};
 
   return (
@@ -40,6 +40,19 @@ const CreateListing = () => {
             Rent
           </button>
         </div>
+
+        <p className="text-lg mt-6 font-semibold">Name</p>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={onChange}
+          placeholder="Name"
+          maxLength="32"
+          minLength="8"
+          required
+          className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
+        />
       </form>
     </main>
   );
