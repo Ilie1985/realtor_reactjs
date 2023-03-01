@@ -60,7 +60,7 @@ const CreateListing = () => {
     }
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
     if (discountedPrice >= regularPrice) {
@@ -77,6 +77,25 @@ const CreateListing = () => {
 
     let geolocation = {};
     let location;
+    if (geolocationEnabled) {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`
+      );
+      const data = await response.json();
+      console.log(data);
+      geolocation.lat = data.results[0]?.geometry.location.lat ?? 0;
+      geolocation.lng = data.results[0]?.geometry.location.lat ?? 0;
+
+      location = data.status === "ZERO_RESULTS" && undefined;
+    }
+    if (location === undefined) {
+      setLoading("false");
+      toast.error("Please enter a correct address");
+      return;
+    } else {
+      geolocation.lat = latitude;
+      geolocation.lng = longitude;
+    }
   };
 
   if (loading) {
@@ -265,7 +284,7 @@ const CreateListing = () => {
           id="description"
           value={description}
           onChange={onChange}
-          placeholder="Address"
+          placeholder="Description"
           required
           className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
         />
