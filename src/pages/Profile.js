@@ -68,9 +68,13 @@ const Profile = () => {
       const querySnap = await getDocs(q);
       let listings = [];
       querySnap.forEach((doc) => {
-        return listings.push({ id: doc.id, data: doc.data() });
+        return listings.push({
+          id: doc.id,
+          data: doc.data(),
+        });
       });
       setListings(listings);
+
       setLoading(false);
     };
     fetchUserListings();
@@ -137,22 +141,18 @@ const Profile = () => {
           </button>
         </div>
       </section>
-
-      {/* MY LISTINGS======================================= */}
-      <div>
-        {!loading && listings.length > 0 && (
+      <div className="max-w-6xl px-3 mt-6 mx-auto">
+        {!loading && listings.length >= 0 && (
           <Fragment>
             <h2 className="text-2xl text-center font-semibold ">My Listings</h2>
             <ul>
-              {listings.map((listing) => {
-                return (
-                  <ListingItem
-                    key={listing.id}
-                    id={listing.id}
-                    listing={listing.data}
-                  />
-                );
-              })}
+              {listings.map((listing) => (
+                <ListingItem
+                  key={listing.id}
+                  id={listing.id}
+                  listing={listing.data}
+                />
+              ))}
             </ul>
           </Fragment>
         )}
