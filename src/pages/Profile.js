@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { FcHome } from "react-icons/fc";
+import { ListingItem } from "../components";
 
 const Profile = () => {
   const auth = getAuth();
@@ -57,7 +58,6 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchUserListings = async () => {
-     
       const listingRef = collection(db, "listings");
       const q = query(
         listingRef,
@@ -70,7 +70,7 @@ const Profile = () => {
       querySnap.forEach((doc) => {
         return listings.push({ id: doc.id, data: doc.data() });
       });
-      setListings(listings)
+      setListings(listings);
       setLoading(false);
     };
     fetchUserListings();
@@ -137,6 +137,26 @@ const Profile = () => {
           </button>
         </div>
       </section>
+
+      {/* MY LISTINGS======================================= */}
+      <div>
+        {!loading && listings.length > 0 && (
+          <Fragment>
+            <h2 className="text-2xl text-center font-semibold ">My Listings</h2>
+            <ul>
+              {listings.map((listing) => {
+                return (
+                  <ListingItem
+                    key={listing.id}
+                    id={listing.id}
+                    listing={listing.data}
+                  />
+                );
+              })}
+            </ul>
+          </Fragment>
+        )}
+      </div>
     </Fragment>
   );
 };
