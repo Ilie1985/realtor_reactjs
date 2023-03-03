@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   collection,
+  deleteDoc,
   doc,
   getDocs,
   orderBy,
@@ -81,9 +82,19 @@ const Profile = () => {
     fetchUserListings();
   }, [auth.currentUser.uid]);
 
-  const onDelete = () => {};
+  const onDelete = async (listingID) => {
+    if (window.confirm("Are you sure you want to delete?")) {
+      await deleteDoc(doc(db, "listings", listingID));
+      const updatedListings = listings.filter((listing) => {
+        return listing.id !== listingID;
+      });
+      setListings(updatedListings);
+      toast.success("Successfully deleted the listing");
+    }
+  };
+
   const onEdit = (listingID) => {
-    navigate(`/edit-listing/${listingID}`)
+    navigate(`/edit-listing/${listingID}`);
   };
 
   return (
