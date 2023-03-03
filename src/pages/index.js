@@ -7,6 +7,7 @@ import SignUp from "./SignUp";
 import Error from "./Error";
 import CreateListing from "./CreateListing";
 import EditListing from "./EditListing";
+import Listing from "./Listing";
 
 export {
   ForgotPassword,
@@ -18,4 +19,5 @@ export {
   Error,
   CreateListing,
   EditListing,
+  Listing,
 };
