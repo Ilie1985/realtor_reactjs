@@ -164,7 +164,7 @@ const CreateListing = () => {
       imgUrls,
       geolocation,
       timestamp: serverTimestamp(),
-      useRef: auth.currentUser.uid,
+      userRef: auth.currentUser.uid,
     };
 
     delete formDataCopy.images;
