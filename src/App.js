@@ -9,6 +9,7 @@ import {
   SignUp,
   Error,
   CreateListing,
+  EditListing,
 } from "./pages";
 import { Header, PrivateRoute } from "./components";
 import { ToastContainer } from "react-toastify";
@@ -33,6 +34,10 @@ const App = () => {
 
           <Route path="/create-listing" element={<PrivateRoute />}>
             <Route path="/create-listing" element={<CreateListing />} />
+          </Route>
+
+          <Route path="/edit-listing" element={<PrivateRoute />}>
+            <Route path="/edit-listing/:listingId" element={<EditListing />} />
           </Route>
 
           <Route path="*" element={<Error />} />
