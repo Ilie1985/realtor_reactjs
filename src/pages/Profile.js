@@ -81,6 +81,11 @@ const Profile = () => {
     fetchUserListings();
   }, [auth.currentUser.uid]);
 
+  const onDelete = () => {};
+  const onEdit = (listingID) => {
+    navigate(`/edit-listing/${listingID}`)
+  };
+
   return (
     <Fragment>
       <section className="max-w-6xl mx-auto flex justify-center items-center flex-col">
@@ -154,6 +159,12 @@ const Profile = () => {
                   key={listing.id}
                   id={listing.id}
                   listing={listing.data}
+                  onDelete={() => {
+                    onDelete(listing.id);
+                  }}
+                  onEdit={() => {
+                    onEdit(listing.id);
+                  }}
                 />
               ))}
             </ul>
