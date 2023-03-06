@@ -15,6 +15,12 @@ body {
   background: #a8dadc !important;
 }
 
+/* no scrollbar for chrome browsers */
+html::-webkit-scrollbar {
+  display: none;
+}
 
-
-
+/* no scrollbar for firefox */
+html {
+  scrollbar-width: none;
+}
