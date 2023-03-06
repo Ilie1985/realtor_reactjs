@@ -60,14 +60,13 @@ const Offers = () => {
       querySnap.forEach((doc) => {
         return listings.push({ id: doc.id, data: doc.data() });
       });
-      setListings((prevState)=>{
-     return [...prevState, ...listings]
+      setListings((prevState) => {
+        return [...prevState, ...listings];
       });
       setLoading(false);
     } catch (error) {
       toast.error("Could not fetch listing");
     }
-    onFetchMoreListings();
   };
 
   return (
