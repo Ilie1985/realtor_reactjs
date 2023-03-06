@@ -8,6 +8,7 @@ import Error from "./Error";
 import CreateListing from "./CreateListing";
 import EditListing from "./EditListing";
 import Listing from "./Listing";
+import Category from "./Category";
 
 export {
   ForgotPassword,
@@ -20,4 +21,5 @@ export {
   CreateListing,
   EditListing,
   Listing,
+  Category,
 };
