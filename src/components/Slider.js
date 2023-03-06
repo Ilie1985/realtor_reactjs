@@ -2,10 +2,23 @@ import React, { useEffect, useState, Fragment } from "react";
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import { db } from "../firebase";
 import { Spinner } from "../components";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, {
+  EffectFade,
+  Autoplay,
+  Navigation,
+  Pagination,
+} from "swiper";
+import "swiper/css/bundle";
+import { useNavigate } from "react-router-dom";
 
 const Slider = () => {
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  SwiperCore.use([Autoplay, Navigation, Pagination]);
+
   useEffect(() => {
     const fetchListings = async () => {
       const listingsRef = collection(db, "listings");
@@ -34,9 +47,42 @@ const Slider = () => {
   return (
     listings && (
       <Fragment>
-        {listings.map((listing) => {
-          return <h1 key={listing.id}> {listing.data.imgUrls[0]}</h1>;
-        })}
+        <Swiper
+          slidesPerView={1}
+          navigation
+          pagination={{ type: "progressbar" }}
+          effect="fade"
+          modules={{ EffectFade }}
+          autoplay={{ delay: 3000 }}
+        >
+          {listings.map((listing) => {
+            return (
+              <SwiperSlide
+                key={listing.id}
+                onClick={() => {
+                  navigate(`/category/${listing.data.type}/${listing.id}`);
+                }}
+              >
+                <div
+                  style={{
+                    background: `url(${listing.data.imgUrls[0]}) center,no-repeat`,
+                    backgroundSize: "cover",
+                  }}
+                  className=" relative w-full h-[300px] overflow-hidden"
+                ></div>
+
+                <p className="text-[#f1faee] absolute left-1 top-3 font-medium max-w-[90%] bg-[#457b9d] shadow-lg opacity-90 p-2 rounded-br-3xl">
+                  {listing.data.name}
+                </p>
+
+                <p className="text-[#f1faee] absolute left-1 bottom-1 font-semibold max-w-[90%] bg-[#e63946] shadow-lg opacity-90 p-2 rounded-tr-3xl">
+                  £ {listing.data.discountedPrice ?? listing.data.regularPrice}
+                  {listing.data.type === "rent" && "/ month"}
+                </p>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
       </Fragment>
     )
   );
