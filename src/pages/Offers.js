@@ -5,6 +5,7 @@ import {
   limit,
   orderBy,
   query,
+  startAfter,
   where,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
@@ -14,6 +15,7 @@ import { ListingItem, Spinner } from "../components";
 const Offers = () => {
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [lastFetch, setLastFetchListing] = useState(null);
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -26,6 +28,8 @@ const Offers = () => {
           limit(8)
         );
         const querySnap = await getDocs(q);
+        const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+        setLastFetchListing(lastVisible);
         const listings = [];
         querySnap.forEach((doc) => {
           return listings.push({ id: doc.id, data: doc.data() });
@@ -38,6 +42,33 @@ const Offers = () => {
     };
     fetchListings();
   }, []);
+
+  const onFetchMoreListings = async () => {
+    try {
+      const listingRef = collection(db, "listings");
+      const q = query(
+        listingRef,
+        where("offer", "==", true),
+        orderBy("timestamp", "desc"),
+        startAfter(setLastFetchListing),
+        limit(4)
+      );
+      const querySnap = await getDocs(q);
+      const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+      setLastFetchListing(lastVisible);
+      const listings = [];
+      querySnap.forEach((doc) => {
+        return listings.push({ id: doc.id, data: doc.data() });
+      });
+      setListings((prevState)=>{
+     return [...prevState, ...listings]
+      });
+      setLoading(false);
+    } catch (error) {
+      toast.error("Could not fetch listing");
+    }
+    onFetchMoreListings();
+  };
 
   return (
     <div className="max-w-6xl mx-auto px-3">
@@ -59,6 +90,16 @@ const Offers = () => {
               })}
             </ul>
           </main>
+          {setLastFetchListing && (
+            <div className="flex justify-center item-center">
+              <button
+                className="bg-white px-3 py-1.5 text-gray-700 border border-gray-300 mb-6 mt-6 hover:border-slate-600 transition duration-150 ease-in-out rounded"
+                onClick={onFetchMoreListings}
+              >
+                Load more
+              </button>
+            </div>
+          )}
         </>
       ) : (
         <p>There are no current offers</p>
